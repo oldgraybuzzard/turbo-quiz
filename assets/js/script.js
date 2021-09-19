@@ -1,16 +1,21 @@
 //variables
-var testerName = prompt("What is your first name?");
+//var testerName = prompt("What is your first name?");
 var testerInitials = "";
 var highScore = "";
 var lowScore = "";
+var onQuestion = 0;
+var score = 0;
 var timerEl = document.getElementById('countdown');
 var myQuestionsEl = document.getElementById('main');
 var startBtn = document.getElementById('start');
+var submitBtn = document.getElementById('submit');
 var message = "The Game has ended, lets see how you did!";
-
+var answerTrue = document.getElementById('True');
+var answerFalse = document.getElementById('False');
+ 
 // messages about game starting
-alert("Are you ready to test your coding skills " + testerName + "?");
-alert("When you click Ok, the game will start. However, before we click ok, you need to know that you will only have 60 secs to answer 10 questions. If you choose the wrong answer, you will loose 5 seconds. If you understand the instructions click OK, if not click CANCEL to exit the game.------------ NOW, ARE YOU READY?");
+// alert("Are you ready to test your coding skills " + testerName + "?");
+// alert("When you click Ok, the game will start. However, before we click ok, you need to know that you will only have 60 secs to answer 10 questions. If you choose the wrong answer, you will loose 5 seconds. If you understand the instructions click OK, if not click CANCEL to exit the game.------------ NOW, ARE YOU READY?");
 
 //60 sec timer
 function countdown() {
@@ -43,42 +48,62 @@ function countdown() {
   }, 1000);
 }
 
-
-
 //array for quiz questions
 var myQuestions = [
-  { question: "JavaScript is the same as Jave?", answer: "t" },
-  { question: "A JavaScript file ends with .css.", answer: "f" },
+  { question: "JavaScript is the same as Jave?", answer: "true" },
+  { question: "A JavaScript file ends with .css.", answer: "false" },
 ]
+
+function check() {
+  document.getElementById("True").checked = true;
+}
+
+function uncheck() {
+  document.getElementById("False").checked = false;
+}
 
 function askQuestions() {
 
   // We start the game with a score of 0.
-  var score = 0;
-  var onQuestion = 0;
+  //var score = 0;
+  //var onQuestion = 0;
 
   switch (onQuestion) {
       case 0:
         myQuestionsEl.textContent = myQuestions[0].question;
-        var response = document.getElementsByName('AnswerOptions');
-        if (response[0].checked) {
-          onQuestion = 1;
-          score++;
-        } else {
-          timeLeft--;
-        }
         break;
       case 1:
         myQuestionsEl.textContent = myQuestions[1].question;
-        var response = document.getElementsByName('AnswerOptions');
+        break;
+  }
+}
+
+function CheckAnswers() {
+
+    switch (onQuestion) {
+      case 0:
+            if (answerTrue === check()) {
+              onQuestion = 1;
+              score++;
+            } else if (answerFalse === uncheck()) {
+              onQuestion = 1;
+              timeLeft - 5000;
+            }
+            console.log(onQuestion);
+        break;
+      case 1:
+        var response = document.getElementsById('True');
         if (response[1].checked) {
           onQuestion = 1;
           score++;
         } else {
-          timeLeft--;
+          timeLeft - 5000;
         }
         break;
   }
+};
+
+
 
 //   // Loop over every question object
 // //  for (var i = 0; i < myQuestions.length; i++) {
@@ -103,6 +128,6 @@ function askQuestions() {
 //   alert('You got ' + score + '/' + myQuestions.length);
   
 
-}
 
 startBtn.onclick = countdown;
+submitBtn.onclick = CheckAnswers;
