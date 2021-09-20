@@ -132,6 +132,13 @@ function storeInitials() {
     localStorage.initials = testerInitials;
   };  
   
+  // $('button').click(function(){
+  //   var onQuestion = (askQuestion.question[q]);
+  //   var currentRadio1 = (allQuestions.choices[rb1]);
+  //   var currentRadio2 = (allQuestions.choices[rb2]);
+  //   $('.questions').html(currentQuestion);
+  //   $('.true').html(currentRadio1);
+  // };
 
   startBtn.onclick = countdown;
 submitBtn.onclick = CheckAnswers; 
